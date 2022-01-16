@@ -7,10 +7,11 @@ const app = express()
 
 const url = 'https://coinmarketcap.com/'
 
+const coins = []
+
 axios(url)
     .then(response => {
     const html = response.data
-    const coins = []
     const $ = cheerio.load(html);
 
         $('tr', html).each(function(){
@@ -24,13 +25,14 @@ axios(url)
             })
         })
 
-        app.get('/coins', function (req, res) {
-        res.send(coins.splice(1,10))
-        })
 }).catch(err => console.log(err))
 
 app.get('/', (req, res) => {
     res.json('Welcome to  Crypto API.')
 })
+
+app.get('/coins', function (req, res) {
+        res.send(coins.splice(1,10))
+        })
 
 app.listen(PORT, () => console.log(`server running on PORT ${PORT}`))
