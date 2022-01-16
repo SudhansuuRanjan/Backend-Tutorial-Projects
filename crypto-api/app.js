@@ -28,7 +28,7 @@ axios(url)
 }).catch(err => console.log(err))
 
 app.get('/', (req, res) => {
-    res.json('Welcome to  Crypto API.')
+    res.json('Welcome to  Crypto API. Add /coins at the end to get cryptocurrency live prices')
 })
 
 app.get('/coins', function (req, res) {
