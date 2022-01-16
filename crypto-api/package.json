@@ -1,0 +1,17 @@
+{
+  "name": "crypto-price-api",
+  "version": "1.0.0",
+  "description": "An api which responds with the current values of top crypto currencies.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "Sudhanshu Ranjan",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "cheerio": "^1.0.0-rc.10",
+    "express": "^4.17.2"
+  }
+}
