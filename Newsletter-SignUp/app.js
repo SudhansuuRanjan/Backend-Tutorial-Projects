@@ -2,8 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const request = require('request')
 const https = require('https')
+require('dotenv').config();
 
 const app = express()
+
+const username = process.env.USER_NAME;
+const apiKey = process.env.API_KEY;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
@@ -36,11 +40,11 @@ app.post("/" , function(req, res){
 
    const options = {
        method: "POST",
-       auth: "Spectre_7:6ea7b42c5b9a500755a3afd99cc9807b-us20"
+       auth: username + ":"+ apiKey
    }
 
    const request = https.request(url , options , function(response){
-
+     
      if( response.statusCode === 200){
          res.sendFile(__dirname + "/success.html")
      }else{
@@ -48,7 +52,7 @@ app.post("/" , function(req, res){
      }
 
       response.on("data",(data)=>{
-        //console.log( JSON.parse(data));  
+        console.log( JSON.parse(data));  
       })
    })
 
@@ -66,7 +70,3 @@ app.post("/failure", (req,res)=>{
 app.listen(process.env.PORT || 3000 , function(){
     console.log("Server is running on PORT 3000.")
 })
-
-//API key
-// 6ea7b42c5b9a500755a3afd99cc9807b-us20
-// 08b328bafa.
