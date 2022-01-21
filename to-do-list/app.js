@@ -10,16 +10,16 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-let items = [];
-let workItems = [];
+const items = [];
+const workItems = [];
 
 app.get("/", (req, res) => {
-  let day = date();
+  const day = date.getDate();
   res.render("list", { newLists: items, listTitle: day });
 });
 
 app.post("/", (req, res) => {
-  let item = req.body.newItem;
+  const item = req.body.newItem;
 
   if (req.body.button === "Work List") {
     workItems.push(item);
