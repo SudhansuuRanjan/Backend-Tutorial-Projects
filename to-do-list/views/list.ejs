@@ -1,24 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Document</title>
-  </head>
-  <body>
-   <h1>To Do List</h1>
+   <%- include("header") -%> 
 
-   
+    <div class="box">
+      <h1 id="heading"><%= listTitle %> </h1>
+    </div>
 
-   
+    <div class="box">
+      <% for( var i = 0 ; i < newLists.length ; i++){ %>
+      <div class="item">
+        <input type="checkbox" />
+        <p><%= newLists[i] %></p>
+      </div>
+      <% } %>
+
+      <form class="item" action="/" method="post">
+      <input type="text" name="newItem" id=""  placeholder="New Item" autocomplete="off"/>
+      <button type="submit" name="button" value="<%= listTitle %>">+</button>
+    </form>
+    </div>
 
 
-   <form action="/" method="post">
+    <%- include("footer") -%> 
 
-       <input type="text" name="newItem" id="">
-       <button type="submit" name="button">Add</button>
 
-   </form>
-  </body>
-</html>
+ 

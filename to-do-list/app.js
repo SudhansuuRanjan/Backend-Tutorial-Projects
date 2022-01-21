@@ -1,48 +1,42 @@
+//jshint esversion:6
+
 const express = require("express");
 const bodyParser = require("body-parser");
+const date = require(__dirname + "/date.js");
 
 const app = express();
 
 app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
+
+let items = [];
+let workItems = [];
 
 app.get("/", (req, res) => {
-  var today = new Date();
-  var days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  var months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  var day = days[today.getDay()];
-  var month = months[today.getMonth()];
-  var year = today.getFullYear();
-
-  res.render("list", { today:today , kindOfDay: day, kindOfMonth: month, kindOfYear: year });
+  let day = date();
+  res.render("list", { newLists: items, listTitle: day });
 });
 
-app.post("/",(req,res) =>{
- var item =  req.body.newItem ;
- console.log(item)
-})
+app.post("/", (req, res) => {
+  let item = req.body.newItem;
+
+  if (req.body.button === "Work List") {
+    workItems.push(item);
+    res.redirect("/work");
+  } else {
+    items.push(item);
+    res.redirect("/");
+  }
+});
+
+app.get("/work", (req, res) => {
+  res.render("list", { listTitle: "Work List", newLists: workItems });
+});
+
+app.get("/about", (req, res) => {
+  res.render("about");
+});
 
 app.listen(3000, () => {
   console.log("server started on port 3000");
