@@ -51,7 +51,7 @@ app.get("/posts/:postName",(req,res)=>{
      posts.forEach((post) =>{
          const storedTitle = _.lowerCase(post.title);
          if(storedTitle  === requestedTitle){
-           res.render("post",{title:post.title , body : post.body})  
+           res.render("post",{title:post.title , body :post.body})  
          }else{
              console.log("Not a Match!")
          }
