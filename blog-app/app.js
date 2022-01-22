@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
+const _ = require('lodash');
+const marked = require ('marked');
 
 const app = express();
 
@@ -18,7 +20,7 @@ app.use(express.static("public"));
 
 
 app.get("/", (req,res) =>{
-    res.render("home",{post:posts})
+    res.render("home",{post:posts ,homeContent:contactContent})
 })
 
 app.get("/about", (req,res) =>{
@@ -36,10 +38,25 @@ app.get("/compose", (req,res) =>{
 app.post("/compose", (req, res)=>{
    const post = {
        title : req.body.title,
-       body: req.body.blog
+       body:req.body.blog
    }
    posts.push(post);
    res.redirect("/");
+})
+
+app.get("/posts/:postName",(req,res)=>{
+
+    const requestedTitle = _.lowerCase(req.params.postName);
+
+     posts.forEach((post) =>{
+         const storedTitle = _.lowerCase(post.title);
+         if(storedTitle  === requestedTitle){
+           res.render("post",{title:post.title , body : post.body})  
+         }else{
+             console.log("Not a Match!")
+         }
+     })
+
 })
 
 app.listen(3000, () =>{
