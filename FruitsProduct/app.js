@@ -2,7 +2,7 @@ const { MongoClient } = require("mongodb");
 
 // Replace the uri string with your MongoDB deployment's connection string.
 const uri =
-  "mongodb+srv://sudh12345:Sudh12345@cluster0.dssa4.mongodb.net/mflix?retryWrites=true&w=majority";;
+  "ur Uri";
 
 const client = new MongoClient(uri);
 
