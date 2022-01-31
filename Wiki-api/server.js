@@ -1,3 +1,4 @@
+const PORT = process.env.PORT || 3000
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -19,10 +20,6 @@ const articleSchema = {
 
 const Article = mongoose.model("Article", articleSchema)
 
-const article1 = new Article({
-    title:"lorem",
-    content:"Wev Dev stands for web development."
-})
 
 
 ////////// Requests Targeting input form /////////////
@@ -109,10 +106,17 @@ app.route('/articles/:articleTitle')
                } 
             }
         )
+    })
+    .delete((req,res)=>{
+      Article.deleteOne({title: req.params.articleTitle},(err)=>{
+         if(!err){
+            res.send("Article deleated successfully!!")
+        }else{
+            res.send(err)
+        }  
+      })  
     });
 
 
 
-app.listen(3000, function() {
-  console.log("Server started on port 3000");
-});
+app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
